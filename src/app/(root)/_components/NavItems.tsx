@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import {navItems} from "@/lib/constants";
+import {NAV_ITEMS} from "@/lib/constants";
 import Link from "next/link";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
@@ -19,10 +19,10 @@ const NavItems = () => {
 
   return (
     <ul className="flex flex-col sm:flex-row p-2 gap-3 sm:gap-10 font-medium">
-      {navItems.map(({href,text}, index) => (
+      {NAV_ITEMS.map(({href,label}, index) => (
         <li key={index}>
           <Link href={href} className={cn("hover:text-yellow-500 transition-colors", isActive(href) ? "text-gray-100" : "")}>
-            {text}
+            {label}
           </Link>
         </li>
       ))}
