@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-console.log(process.env.NEXT_PUBLIC_BASE_URL);
+
 const MONGO_DB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/stockapp";
 
 declare global {
@@ -15,7 +15,7 @@ let cached = global.mongooseCache;
 if(!cached) {
    cached = global.mongooseCache = { conn: null, promise: null };
 }
-export const connectToDatabase = async () => {
+export const connectToDatabase = async () : Promise<typeof mongoose> => {
    if(!MONGO_DB_URI) {
       throw new Error("Please define the MONGODB_URI environment variable inside .env");
    }
@@ -34,4 +34,6 @@ export const connectToDatabase = async () => {
    }
 
    console.log(`Connected to MongoDB ${process.env.NODE_ENV} database at ${MONGO_DB_URI}`);
+
+   return cached.conn;
 } 

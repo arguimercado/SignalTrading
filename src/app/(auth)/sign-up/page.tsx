@@ -4,13 +4,19 @@ import FooterLink from '@/components/commons/forms/FooterLink';
 import InputField from '@/components/commons/forms/InputField';
 import SelectField from '@/components/commons/forms/SelectField';
 import { Button } from '@/components/ui/button';
+import { signupWithEmail } from '@/lib/actions/auth.action';
 import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from '@/lib/constants';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner';
 
 
 
 const SignUp = () => {
+
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -31,9 +37,14 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      console.log(data);
+      const result = await signupWithEmail(data);
+      if(result.success) router.push('/');
+
     }catch (error) {
       console.log(error);
+      toast.error('Error signing up. Please try again.',{
+        description: error instanceof Error ? error.message : 'Failed to create an account.',
+      });
     }
   }
   
