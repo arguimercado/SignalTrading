@@ -4,35 +4,31 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {useRouter} from "next/navigation";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import UserAvatar from "@/components/commons/misc/UserAvatar";
 import {LogOut} from "lucide-react";
 import NavItems from "@/app/(root)/_components/NavItems";
+import { signOut } from "@/lib/actions/auth.action";
 
 
-const UserDropdown = () => {
+const UserDropdown = ({user} : {user:User}) => {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    router.push('/sign-in');
+    try {
+      await signOut();
+      router.push('/sign-in');
+
+    }catch (error) {
+      console.log('Error signing out:', error);
+    }
   }
 
-  const user = {
-    name: 'John Doe',
-    email: 'johndoe@gmail.com'
-  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

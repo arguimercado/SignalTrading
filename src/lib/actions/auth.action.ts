@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/better-auth/auth";
 import { inngest } from "../inngest/client";
+import { headers } from "next/headers";
 
 
 
@@ -37,3 +38,13 @@ export const signupWithEmail = async({email,password,fullName,country,investment
    }
 }
 
+export const signOut = async () => {
+   try {
+      await auth.api.signOut({headers: await headers()});
+
+   }
+   catch (error) {
+      console.log('Error signing out:', error);
+      return {success: false, error: 'Error signing out. Please try again.'}
+   }
+}
