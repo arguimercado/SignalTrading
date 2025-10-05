@@ -15,7 +15,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     control,
-    formState: {errors, isSubmitting, isValid, isDirty},
+    formState: {errors, isSubmitting},
   } = useForm<SignUpFormData>({
     defaultValues: {
       fullName: '',
