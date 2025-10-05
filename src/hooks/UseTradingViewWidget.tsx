@@ -4,9 +4,7 @@ import {useEffect,useRef} from 'react'
 const useTradingViewWidget = (scriptUrl: string,config: Record<string,unknown>, height = 600) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(
-
-    () => {
+  useEffect(() => {
 
       if(!containerRef.current) return;
       if(containerRef.current.dataset.loaded) return;
