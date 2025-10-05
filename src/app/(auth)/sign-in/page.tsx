@@ -2,12 +2,17 @@
 import FooterLink from '@/components/commons/forms/FooterLink';
 import InputField from '@/components/commons/forms/InputField';
 import { Button } from '@/components/ui/button';
+import { signIn } from '@/lib/actions/auth.action';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner';
 
 
 
 const SignIn = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -22,9 +27,20 @@ const SignIn = () => {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      console.log(data);
-    }catch (error) {
+      const response = await signIn(data);
+      if (response.success) {
+          // Handle successful sign in
+          toast.success('Signed in successfully!');
+          router.push('/');
+      } 
+      else {
+        // Handle sign in error
+        toast.error(response.error);
+      }
+    }
+    catch (error) {
       console.log(error);
+      toast.error('An unexpected error occurred. Please try again.');
     }
   }
   

@@ -6,7 +6,8 @@ import { headers } from "next/headers";
 
 
 
-export const signupWithEmail = async({email,password,fullName,country,investmentGoals,riskTolerance,preferredIndustry}: SignUpFormData) => {
+export const signupWithEmail = async({email,password,fullName,country,investmentGoals,riskTolerance,preferredIndustry} 
+   : SignUpFormData) => {
    try {
 
       const response = await auth.api.signUpEmail({
@@ -45,5 +46,25 @@ export const signOut = async () => {
    catch (error) {
       console.log('Error signing out:', error);
       return {success: false, error: 'Error signing out. Please try again.'}
+   }
+}
+
+export const signIn = async({email, password}: SignInFormData) : Promise<ActionResponse<unknown>> => {
+   try {
+
+      const signinEmailResponse = await auth.api.signInEmail({
+         body: {
+            email,
+            password
+         }
+      });
+
+      const response : ActionResponse<typeof signinEmailResponse> = 
+         signinEmailResponse ? {success: true, data: signinEmailResponse} : ({success: false, error: 'Invalid email or password'})
+
+      return response;
+   }catch (error) {
+      console.log('Error signing in:', error);
+      return {success: false, error: 'Error signing in. Please try again.'}
    }
 }

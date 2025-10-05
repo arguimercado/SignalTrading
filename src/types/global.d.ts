@@ -225,6 +225,12 @@ declare global {
         threshold: number;
         changePercent?: number;
     };
+
+    type ActionResponse<T> = {
+        success: boolean;
+        data?: T;
+        error?: string;
+    }
 }
 
 export {};
