@@ -21,7 +21,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     control,
-    formState: {errors, isSubmitting, isValid, isDirty},
+    formState: {errors, isSubmitting},
   } = useForm<SignUpFormData>({
     defaultValues: {
       fullName: '',
@@ -40,8 +40,8 @@ const SignUp = () => {
       const result = await signupWithEmail(data);
       if(result.success) router.push('/');
 
-    }catch (error) {
-      console.log(error);
+    }
+    catch (error) {
       toast.error('Error signing up. Please try again.',{
         description: error instanceof Error ? error.message : 'Failed to create an account.',
       });

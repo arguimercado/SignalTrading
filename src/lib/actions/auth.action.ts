@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 
 export const signupWithEmail = async({email,password,fullName,country,investmentGoals,riskTolerance,preferredIndustry}: SignUpFormData) => {
    try {
-      
+
       const response = await auth.api.signUpEmail({
          body: {
             email,
@@ -41,7 +41,6 @@ export const signupWithEmail = async({email,password,fullName,country,investment
 export const signOut = async () => {
    try {
       await auth.api.signOut({headers: await headers()});
-
    }
    catch (error) {
       console.log('Error signing out:', error);

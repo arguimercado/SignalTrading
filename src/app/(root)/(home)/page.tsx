@@ -1,4 +1,3 @@
-import {Button} from "@/components/ui/button";
 import TradingViewWidget from "@/components/widgets/TradingViewWidget";
 import {
   HEATMAP_WIDGET_CONFIG,
